@@ -42,10 +42,11 @@ class LFUCache(BaseCaching):
                     self.frequency.pop(lfu_key)
                     self.last_used.pop(lfu_key)
                     self.count -= 1
-                print("DISCARD: {}".format(lfu_key))
+                    print("DISCARD: {}".format(lfu_key))
+            else:
+                self.count += 1
             self.cache_data[key] = item
             self.frequency[key] = 1
-            self.count += 1
         self.last_used[key] = self.count
 
     def get(self, key):
