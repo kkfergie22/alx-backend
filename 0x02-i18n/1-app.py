@@ -35,21 +35,6 @@ class Config(object):
     DEFAULT_TIMEZONE = 'UTC'
 
 
-@babel.localeselector
-def get_locale() -> str:
-    """
-    This function determines the user's preferred locale for the application.
-
-    It tries to find the best match between the available languages and
-    the user's preferences,either through the Accept-Language HTTP header
-    or a query parameter in the URL.
-
-    Returns:
-        The preferred locale for the application as a string.
-    """
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
-
-
 app.config.from_object(Config)
 
 

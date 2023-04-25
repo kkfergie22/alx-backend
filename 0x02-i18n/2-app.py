@@ -64,7 +64,7 @@ def index() -> Tuple[str, int]:
     Returns:
         A tuple containing the rendered HTML template and a status code 200 OK.
     """
-    return render_template('1-index.html'), 200
+    return render_template('2-index.html'), 200
 
 
 if __name__ == "__main__":
