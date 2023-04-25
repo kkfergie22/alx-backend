@@ -32,6 +32,12 @@ class Config(object):
     BABEL_DEFAULT_TIMEZONE = 'UTC'
 
 
+app = Flask(__name__)
+app.config.from_object(Config)
+babel = Babel(app)
+
+
+@babel.localeselector
 def get_locale() -> str:
     """
     This function determines the user's preferred locale for the application.
@@ -43,14 +49,11 @@ def get_locale() -> str:
     Returns:
         The preferred locale for the application as a string.
     """
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
-
-
-app = Flask(__name__)
-app.config.from_object(Config)
-app.url_map.strict_slashes = False
-babel = Babel()
-babel.init_app(app, locale_selector=get_locale)
+    supported_locales = app.config['LANGUAGES']
+    locale = request.args.get('locale')
+    if locale in supported_locales:
+        return locale
+    return request.accept_languages.best_match(supported_locales)
 
 
 @app.route('/')
@@ -66,9 +69,9 @@ def index() -> Tuple[str, int]:
     """
     title = _('home_title')
     header = _('home_header')
-    return render_template('3-index.html', title=title,
+    return render_template('4-index.html', title=title,
                            header=header)
 
 
 if __name__ == "__main__":
-    app.run(host='localhost', port=5000, debug=True)
+    app.run(host='localhost', debug=True)
