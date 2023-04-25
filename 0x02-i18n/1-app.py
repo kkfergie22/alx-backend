@@ -31,8 +31,8 @@ class Config(object):
         DEFAULT_TIMEZONE (str): The default timezone for the application.
     """
     LANGUAGES = ["en", "fr"]
-    DEFAULT_LOCALE = 'en'
-    DEFAULT_TIMEZONE = 'UTC'
+    BABEL_DEFAULT_LOCALE = 'en'
+    BABEL_DEFAULT_TIMEZONE = 'UTC'
 
 
 app.config.from_object(Config)
